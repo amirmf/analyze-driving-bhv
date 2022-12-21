@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package protocol;
+
+option java_package = "com.taraan.dum.dto.tracker";
+option java_outer_classname = "TripTrackerInfoProtocol";
+
+message TripTrackerInfoDtos {
+    repeated OdpTripTrackerInfoDto odpTripTrackerInfos = 4;
+}
+
+message OdpTripTrackerInfoDto {
+    int64 order = 1;
+    string deviceId = 2;
+    double longitude = 3;
+    double latitude = 4;
+    double x = 5;
+    double y = 6;
+    double z = 7;
+    double sumAcceleration = 8;
+    double realSpeed = 9;
+    int64 direction1 = 10;
+    string postDate = 11;
+}

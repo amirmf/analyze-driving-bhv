@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true" threshold="all">
+
+    <appender name="SystemOut" class="org.apache.log4j.ConsoleAppender">
+        <param name="threshold" value="ALL"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%c %d{ISO8601} -- %p -- %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="InfoFileOut" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="../logs/done/done-core-info.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="threshold" value="ALL"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <!--<param name="MaxBackupIndex" value="200"/>-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%c %d{ISO8601} -- %p -- %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO"/>
+            <param name="levelMax" value="INFO"/>
+        </filter>
+    </appender>
+
+    <appender name="ErrorFileOut" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="../logs/done/done-core-error.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="threshold" value="ERROR"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <!--<param name="MaxBackupIndex" value="200"/>-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%c %d{ISO8601} -- %p -- %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="ERROR"/>
+            <param name="levelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="TraceFileOut" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="../logs/done/done-core-trace.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="threshold" value="TRACE"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <!--<param name="MaxBackupIndex" value="200"/>-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%c %d{ISO8601} -- %p -- %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="TRACE"/>
+            <param name="levelMax" value="TRACE"/>
+        </filter>
+    </appender>
+
+    <appender name="DebugFileOut" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="../logs/done/done-core-debug.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <!--<param name="MaxBackupIndex" value="200"/>-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%c %d{ISO8601} -- %p -- %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG"/>
+            <param name="levelMax" value="DEBUG"/>
+        </filter>
+    </appender>
+
+    <appender name="FilteredASYNCAppender" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="SystemOut"/>
+        <appender-ref ref="TraceFileOut"/>
+        <appender-ref ref="DebugFileOut"/>
+    </appender>
+
+    <appender name="ASYNCAppender" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="InfoFileOut"/>
+        <appender-ref ref="ErrorFileOut"/>
+    </appender>
+
+    <logger name="com.sun.jersey.server.wadl.generators.AbstractWadlGeneratorGrammarGenerator">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="org">
+        <level value="INFO"/>
+        <appender-ref ref="FilteredASYNCAppender"/>
+    </logger>
+
+    <logger name="net">
+        <level value="INFO"/>
+        <appender-ref ref="FilteredASYNCAppender"/>
+    </logger>
+
+    <logger name="com.sun">
+        <level value="INFO"/>
+        <appender-ref ref="FilteredASYNCAppender"/>
+    </logger>
+
+    <root>
+        <!--<appender-ref ref="FilteredASYNCAppender"/>-->
+        <appender-ref ref="ASYNCAppender"/>
+    </root>
+
+</log4j:configuration>

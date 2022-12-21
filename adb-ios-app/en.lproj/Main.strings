@@ -1,0 +1,24 @@
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "3gf-y2-3d9"; */
+"3gf-y2-3d9.title" = "Root View Controller";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "AJ6-Gs-3Mm"; */
+"AJ6-Gs-3Mm.title" = "Root View Controller";
+
+/* Class = "UITabBarItem"; title = "challenge"; ObjectID = "FZq-Dg-eh9"; */
+"FZq-Dg-eh9.title" = "challenge";
+
+/* Class = "UITabBarItem"; title = "Drive"; ObjectID = "G4l-RQ-lLq"; */
+"G4l-RQ-lLq.title" = "Drive";
+
+/* Class = "UITabBarItem"; title = "Trip"; ObjectID = "KNO-U3-FnH"; */
+"KNO-U3-FnH.title" = "Trip";
+
+/* Class = "UITableViewSection"; headerTitle = "Section-1"; ObjectID = "gCx-Sv-Mfg"; */
+"gCx-Sv-Mfg.headerTitle" = "Section-1";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "ukf-8n-IOI"; */
+"ukf-8n-IOI.title" = "Home";
+
+/* Class = "UITabBarItem"; title = "statistc"; ObjectID = "xJM-0H-Fpr"; */
+"xJM-0H-Fpr.title" = "statistc";

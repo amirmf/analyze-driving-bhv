@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="placeholderPrefix" value="${config_"/>
+        <property name="location" value="classpath:config.properties"/>
+    </bean>
+
+
+    <bean id="listenerContainer"
+          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="MQcachedConnectionFactory"/>
+        <property name="destination" ref="defaultDestination"/>
+        <property name="messageListener" ref="jmsMessageListener"/>
+        <property name="concurrentConsumers" value="100"/>
+        <property name="acceptMessagesWhileStopping" value="false"/>
+        <property name="recoveryInterval" value="10000"/>
+        <property name="cacheLevelName" value="CACHE_CONSUMER"/>
+    </bean>
+    <bean id="defaultDestination"
+          class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="${config_analyze.queue}"/>
+    </bean>
+
+    <bean id="jmsMessageListener"
+          class="com.taraan.dum.analyzer.listener.JmsMessageListener">
+        <property name="analyzeAssembler" ref="analyzeAssembler"/>
+    </bean>
+
+
+
+    <bean id="MQcachedConnectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>
+        <property name="reconnectOnException" value="true"/>
+        <property name="sessionCacheSize" value="1"/>
+    </bean>
+    <bean id="activeMQConnectionFactory"
+          class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>${config_analyze.qm}</value>
+        </property>
+        <property name="prefetchPolicy" ref="activeMQPrefetchPolicy"/>
+        <property name="optimizeAcknowledge" value="true"/>
+        <property name="alwaysSessionAsync" value="false"/>
+    </bean>
+    <bean id="activeMQPrefetchPolicy" class="org.apache.activemq.ActiveMQPrefetchPolicy">
+        <property name="queuePrefetch" value="2000"/>
+    </bean>
+</beans>
